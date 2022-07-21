@@ -1,0 +1,53 @@
+CREATE database Payroll_Service;
+show databases;
+use Payroll_Service;
+CREATE table Employee_Payroll (
+ID          int NOT Null auto_increment,
+Name        varchar(45) Not Null,
+Salary      double Not Null,
+Start_Date  date Not Null,
+Primary key(ID) );
+Select * From employee_payroll;
+Insert into employee_payroll ( Name, Salary, Start_Date) values ( 'Jack Parker', '45000.0', '2020-01-15'),
+                                                                ( 'Riyan Smith', '50000.0', '2020-02-01'),
+								( 'Rachel Brown', '65000.0', '2020-01-01'),
+								( 'Nick Jonas', '49000.0', '2020-03-10'),
+								( 'Alex Paul', '38000.0', '2020-03-15'),
+								( 'Nia Patrik', '57000.0', '2020-03-20'),
+								( 'Carol Tyler', '75000.0', '2020-04-05');
+Select * From employee_payroll;   
+Select salary from employee_payroll where Name = 'Alex Paul'; 
+Select Name from employee_payroll where Start_Date between Cast( '2020-03-10' as date) and date(now());     
+Alter table employee_payroll  add Gender varchar(1) after Name;   
+Update employee_payroll set Gender = 'M' where Name = 'Jack Parker' or Name = 'Riyan Smith' or Name = 'Nick Jonas' or Name = 'Alex Paul';   
+Update employee_payroll set Gender = 'F' where Name = 'Rachel Brown' or Name = 'Nia Patrik' or Name = 'Carol Tyler';     
+Select Sum(Salary) From employee_payroll where Gender = 'F' group by Gender;  
+Select Avg(Salary) From employee_payroll where Gender = 'F' group by Gender;
+Select Min(Salary) From employee_payroll where Gender = 'M' group by Gender;   
+Select Max(Salary) From employee_payroll where Gender = 'M' group by Gender;
+Select Count(Salary) From employee_payroll where Gender = 'M' group by Gender;
+Select Count(Gender) From employee_payroll;
+Select Count(Gender) From employee_payroll where Gender = 'M';
+Alter table employee_payroll  add PhoneNumber varchar(10) after Gender; 
+Alter table employee_payroll  add Address varchar(45) after PhoneNumber;
+Alter table employee_payroll  add Department varchar(45) Not Null after Address;  
+Update employee_payroll set Department = 'IT' where Name = 'Riyan Smith' or Name = 'Nia Patrik';
+Update employee_payroll set Department = 'HR' where Name = 'Jack Parker' or Name = 'Nick Jonas';
+Update employee_payroll set Department = 'Finance' where Name = 'Carol Tyler' or Name = 'Rachel Brown';
+Update employee_payroll set Department = 'Marketing' where Name = 'Alex Paul';
+Alter table employee_payroll add BasicPay double after Salary;
+Alter table employee_payroll add Deductions double after BasicPay;
+Alter table employee_payroll add TaxablePay double after Deductions;
+Alter table employee_payroll add IncomeTax double after TaxablePay;
+Alter table employee_payroll add NetPay double after IncomeTax; 
+Update employee_payroll set Address = 'Default';
+Update employee_payroll set PhoneNumber = 'Null';
+Update employee_payroll set BasicPay = '0.0';
+Update employee_payroll set Deductions = '0.0';
+Update employee_payroll set TaxablePay = '0.0';
+Update employee_payroll set IncomeTax = '0.0';
+Update employee_payroll set NetPay = '0.0';
+Select * From employee_payroll;  
+Insert into employee_payroll ( Name, Gender, PhoneNumber, Address, Department, Salary, BasicPay, Deductions, TaxablePay, IncomeTax, NetPay, Start_Date) 
+		      values ( 'Rachel Brown', 'F', 'Null', 'Default', 'Sales', '65000', '30000', '5000', '5000','10000', '45000', '2020-01-15');
+Select * From employee_payroll where Name = 'Rachel Brown';  
